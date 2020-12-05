@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-docker
+spec:
+  selector:
+    matchLabels:
+      app: hello-docker
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: hello-docker
+    spec:
+      containers:
+      - name: hello-docker
+        image: ismet20/hi-docker:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
